@@ -2,12 +2,12 @@
 
 >Implementation of Deck of Cards from **[Gophercises](https://courses.calhoun.io/courses/cor_gophercises)**  by Jon Calhoun, including the bonus section.
 
-In this exercise we are going to create a package that can be used to build decks of cards.
+In this exercise we are going to create a package that can be used to build decks of cards. We will be utilizing the following topics throughout this exercise.
 
-Sorting (using the `sort` package)<br>
-Shuffling with permutations (using the `math/rand` package)<br>
-`go generate` with stringer<br>
-Functional options (for practice)<br>
+- Sorting (using the `sort` package)
+- Shuffling with permutations (using the `math/rand` package)
+- `go generate` with stringer
+- Functional options (for practice)
 
 Along the way we will also learn a little bit about constants, iota, and other aspects of using Go.
 

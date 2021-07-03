@@ -64,7 +64,7 @@ func TestDefaultSort(t *testing.T) {
 	}
 }
 
-// TestSort validates the output generated using generic sorting optional
+// TestSort validates the output generated using generic sorting option
 func TestSort(t *testing.T) {
 	want, got := New(DefaultSort), New(Sort(Less))
 	if !reflect.DeepEqual(want, got) {

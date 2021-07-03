@@ -2,6 +2,7 @@ package deck
 
 import (
 	"fmt"
+	"math/rand"
 	"reflect"
 	"testing"
 )
@@ -79,6 +80,22 @@ func TestSort(t *testing.T) {
 	card := Card{Suit: Heart, Rank: King}
 	if rev[0] != card {
 		t.Fatalf("after reverse sort: expected '%v', got '%v'", card, rev[0])
+	}
+}
+
+// TestShuffle validates the shuffling by making the rand.Source deterministic.
+func TestShuffle(t *testing.T) {
+	src := rand.NewSource(0)
+	// first call to r.Shuffle() with seed as 0 will produce following indices:
+	// [19 36 ...]
+	cards := New()
+	fir, sec := cards[19], cards[36] // expected first and second elements
+	cards = New(Shuffle(src))
+	if cards[0] != fir || cards[1] != sec {
+		t.Fatalf(
+			"expected first='%v', second='%v', got first='%v', second='%v'",
+			fir, sec, cards[0], cards[1],
+		)
 	}
 }
 

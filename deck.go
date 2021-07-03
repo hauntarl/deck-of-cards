@@ -55,11 +55,14 @@ func Sort(less func(cards []Card) func(i, j int) bool) Option {
 // shuffled deck of cards. (This performs shuffling in-place)
 //
 // PS: there is no point passing Shuffle and Sort options together in any order.
-func Shuffle(cards []Card) []Card {
-	rand.Shuffle(len(cards), func(i, j int) {
-		cards[i], cards[j] = cards[j], cards[i]
-	})
-	return cards
+func Shuffle(src rand.Source) Option {
+	r := rand.New(src)
+	return func(cards []Card) []Card {
+		r.Shuffle(len(cards), func(i, j int) {
+			cards[i], cards[j] = cards[j], cards[i]
+		})
+		return cards
+	}
 }
 
 // Jokers option allows you to add jokers in your deck of cards.

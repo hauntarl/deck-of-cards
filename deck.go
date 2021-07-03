@@ -73,3 +73,19 @@ func Jokers(n int) Option {
 		return cards
 	}
 }
+
+// Filter option will remove set of cards which match the given predicate.
+func Filter(predicate func(Card) bool) Option {
+	return func(cards []Card) []Card {
+		end := len(cards) - 1
+		for i := 0; i <= end; {
+			if predicate(cards[i]) {
+				cards[end], cards[i] = cards[i], cards[end]
+				end--
+			} else {
+				i++
+			}
+		}
+		return cards[: end+1 : end+1]
+	}
+}

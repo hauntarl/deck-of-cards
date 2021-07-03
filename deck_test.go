@@ -82,6 +82,7 @@ func TestSort(t *testing.T) {
 	}
 }
 
+// TestJoker validates whether given number of jokers were added in the deck.
 func TestJoker(t *testing.T) {
 	want := 3
 	cards := New(Jokers(want))
@@ -93,5 +94,33 @@ func TestJoker(t *testing.T) {
 	}
 	if got != want {
 		t.Fatalf("total jokers: expected %d, got %d", want, got)
+	}
+}
+
+// TestFilter validates whether cards matching predicates were removed.
+func TestFilter(t *testing.T) {
+	// 1. filter all the hearts
+	cards := New(Filter(func(c Card) bool { return c.Suit == Heart }))
+	want := 52 - 13
+	if len(cards) != want {
+		t.Fatalf("after filter: expected cards %d, got %d", want, len(cards))
+	}
+	for _, card := range cards {
+		if card.Suit == Heart {
+			t.Fatalf("after filter: expected 0 Hearts")
+		}
+	}
+	// 2. filter all the 2s and 3s
+	cards = New(Filter(func(c Card) bool {
+		return c.Rank == Two || c.Rank == Three
+	}))
+	want = 52 - 8
+	if len(cards) != want {
+		t.Fatalf("after filter: expected cards %d, got %d", want, len(cards))
+	}
+	for _, card := range cards {
+		if card.Rank == Two || card.Rank == Three {
+			t.Fatalf("after filter: expected 0 Twos and 0 Threes")
+		}
 	}
 }

@@ -4,9 +4,9 @@
 
 In this exercise we are going to create a package that can be used to build decks of cards. We will be utilizing the following topics throughout this exercise.
 
-- Sorting (using the `sort` package)
-- Shuffling with permutations (using the `math/rand` package)
-- `go generate` with stringer
+- Sorting (using the [sort](https://golang.org/pkg/sort/) package)
+- Shuffling with permutations (using the [math/rand](https://golang.org/pkg/math/rand/) package)
+- `go generate` with [stringer](https://pkg.go.dev/golang.org/x/tools/cmd/stringer)
 - Functional options (for practice)
 
 Along the way we will also learn a little bit about constants, iota, and other aspects of using Go.

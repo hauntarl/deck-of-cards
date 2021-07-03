@@ -2,7 +2,10 @@
 // to create a deck of cards for a given card game, eg. Blackjack.
 package deck
 
-import "sort"
+import (
+	"math/rand"
+	"sort"
+)
 
 // New is a constructor for deck of cards.
 func New(options ...Option) []Card {
@@ -18,17 +21,28 @@ func New(options ...Option) []Card {
 	return cards
 }
 
+// Option represents the signature of function which can be passed as options.
+type Option func([]Card) []Card
+
+// Shuffle is a functional option for deck constructor which will return a
+// shuffled deck of cards.
+//
+// PS: there is no point passing Shuffle and Sort options together in any order.
+func Shuffle(cards []Card) []Card {
+	rand.Shuffle(len(cards), func(i, j int) {
+		cards[i], cards[j] = cards[j], cards[i]
+	})
+	return cards
+}
+
 // Sort creates a user-defined sorting option, whose returned value can be
-// passed to the deck constructor and have cards sorted in a specified way.
+// passed to the deck constructor and have cards sorted in the specified way.
 func Sort(less func(cards []Card) func(i, j int) bool) Option {
 	return func(cards []Card) []Card {
 		sort.Slice(cards, less(cards))
 		return cards
 	}
 }
-
-// Option represents the signature of function which can be passed as options.
-type Option func([]Card) []Card
 
 // DefaultSort is a functional option that can be passed to the constructor for
 // sorting the deck of cards in a default way.

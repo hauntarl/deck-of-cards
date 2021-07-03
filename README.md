@@ -29,14 +29,33 @@ Once you have your New function working, add some options to be used when creati
 **Bonus:**
 
 Once you have your package created, try to comment the code if you haven’t already and look at how to run a local godoc server. You should take some time to learn a little about how you can document your code to make it easier for future developers to use.
-<!-- 
+
 **Run Commands:**
+
+To generate documentation on web
+
+- go get -u golang.org/x/tools/cmd/godoc
+- godoc
+- visit [localhost:6060/pkg/github.com/hauntarl/deck-of-cards/](http://localhost:6060/pkg/github.com/hauntarl/deck-of-cards/)
 
 **Features:**
 
+- utilizing go generate to create stringer for structures
+- making extensive use of functional options to make code generic
+- using built-in packages to perform sorting and shuffling
+- writing tests to validate generated outputs
+
 **Packages explored:**
+
+- `sort` - to sort the deck of cards in a custom way
+- `math/rand` - to shuffle deck of cards using provided source
+- `testing` - to validate generated results
+- `reflect` - to compare two different deck of cards
 
 **Output:**
 
-``` terminal
-``` -->
+> <img src="https://github.com/hauntarl/hauntarl/blob/master/deck-of-cards/first.png" width="960" height="540">
+> <img src="https://github.com/hauntarl/hauntarl/blob/master/deck-of-cards/second.png" width="960" height="540">
+> <img src="https://github.com/hauntarl/hauntarl/blob/master/deck-of-cards/third.png" width="960" height="540">
+> <img src="https://github.com/hauntarl/hauntarl/blob/master/deck-of-cards/fourth.png" width="960" height="540">
+> <img src="https://github.com/hauntarl/hauntarl/blob/master/deck-of-cards/fifth.png" width="960" height="540">

@@ -53,3 +53,10 @@ func TestNew(t *testing.T) {
 		t.Fatalf("expected 4 suits, got: %d", len(set))
 	}
 }
+
+func TestDefaultSort(t *testing.T) {
+	cards, want := New(DefaultSort), Card{Suit: Spade, Rank: Ace}
+	if cards[0] != want {
+		t.Fatalf("after default sort: expected '%v', got '%v'", want, cards[0])
+	}
+}

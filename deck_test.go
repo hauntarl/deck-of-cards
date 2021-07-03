@@ -81,3 +81,17 @@ func TestSort(t *testing.T) {
 		t.Fatalf("after reverse sort: expected '%v', got '%v'", card, rev[0])
 	}
 }
+
+func TestJoker(t *testing.T) {
+	want := 3
+	cards := New(Jokers(want))
+	got := 0
+	for _, card := range cards {
+		if card.Suit == Joker {
+			got++
+		}
+	}
+	if got != want {
+		t.Fatalf("total jokers: expected %d, got %d", want, got)
+	}
+}

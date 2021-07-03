@@ -22,27 +22,7 @@ func New(options ...Option) []Card {
 }
 
 // Option represents the signature of function which can be passed as options.
-type Option func([]Card) []Card
-
-// Shuffle is a functional option for deck constructor which will return a
-// shuffled deck of cards.
-//
-// PS: there is no point passing Shuffle and Sort options together in any order.
-func Shuffle(cards []Card) []Card {
-	rand.Shuffle(len(cards), func(i, j int) {
-		cards[i], cards[j] = cards[j], cards[i]
-	})
-	return cards
-}
-
-// Sort creates a user-defined sorting option, whose returned value can be
-// passed to the deck constructor and have cards sorted in the specified way.
-func Sort(less func(cards []Card) func(i, j int) bool) Option {
-	return func(cards []Card) []Card {
-		sort.Slice(cards, less(cards))
-		return cards
-	}
-}
+type Option func(cards []Card) []Card
 
 // DefaultSort is a functional option that can be passed to the constructor for
 // sorting the deck of cards in a default way.
@@ -61,3 +41,35 @@ func Less(cards []Card) func(i, j int) bool {
 // value calculates the absolute value of any given card which is later
 // utilized when sorting the deck using a default implementation.
 func value(c Card) int { return int(c.Suit)*int(maxRank) + int(c.Rank) }
+
+// Sort creates a user-defined sorting option, whose returned value can be
+// passed to the deck constructor and have cards sorted in the specified way.
+func Sort(less func(cards []Card) func(i, j int) bool) Option {
+	return func(cards []Card) []Card {
+		sort.Slice(cards, less(cards))
+		return cards
+	}
+}
+
+// Shuffle is a functional option for deck constructor which will return a
+// shuffled deck of cards.
+//
+// PS: there is no point passing Shuffle and Sort options together in any order.
+func Shuffle(cards []Card) []Card {
+	rand.Shuffle(len(cards), func(i, j int) {
+		cards[i], cards[j] = cards[j], cards[i]
+	})
+	return cards
+}
+
+// Jokers option allows you to add jokers in your deck of cards.
+func Jokers(n int) Option {
+	return func(cards []Card) []Card {
+		for ; n > 0; n-- {
+			// each joker has been assigned a different rank for you to
+			// differentiate between them
+			cards = append(cards, Card{Suit: Joker, Rank: Rank(n)})
+		}
+		return cards
+	}
+}

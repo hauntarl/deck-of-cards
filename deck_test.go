@@ -2,6 +2,7 @@ package deck
 
 import (
 	"fmt"
+	"reflect"
 	"testing"
 )
 
@@ -60,5 +61,23 @@ func TestDefaultSort(t *testing.T) {
 	cards, want := New(DefaultSort), Card{Suit: Spade, Rank: Ace}
 	if cards[0] != want {
 		t.Fatalf("after default sort: expected '%v', got '%v'", want, cards[0])
+	}
+}
+
+// TestSort validates the output generated using generic sorting optional
+func TestSort(t *testing.T) {
+	want, got := New(DefaultSort), New(Sort(Less))
+	if !reflect.DeepEqual(want, got) {
+		t.Fatal("the generic sort function didn't return expected output")
+	}
+
+	rev := New(Sort(func(cards []Card) func(i, j int) bool {
+		return func(i, j int) bool {
+			return value(cards[i]) > value(cards[j])
+		}
+	}))
+	card := Card{Suit: Heart, Rank: King}
+	if rev[0] != card {
+		t.Fatalf("after reverse sort: expected '%v', got '%v'", card, rev[0])
 	}
 }

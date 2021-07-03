@@ -5,7 +5,7 @@ package deck
 import "sort"
 
 // New is a constructor for deck of cards.
-func New(options ...func([]Card) []Card) []Card {
+func New(options ...Option) []Card {
 	cards := make([]Card, 0, len(suits)*int(maxRank))
 	for _, suit := range suits {
 		for rank := minRank; rank <= maxRank; rank++ {
@@ -17,6 +17,18 @@ func New(options ...func([]Card) []Card) []Card {
 	}
 	return cards
 }
+
+// Sort creates a user-defined sorting option, whose returned value can be
+// passed to the deck constructor and have cards sorted in a specified way.
+func Sort(less func(cards []Card) func(i, j int) bool) Option {
+	return func(cards []Card) []Card {
+		sort.Slice(cards, less(cards))
+		return cards
+	}
+}
+
+// Option represents the signature of function which can be passed as options.
+type Option func([]Card) []Card
 
 // DefaultSort is a functional option that can be passed to the constructor for
 // sorting the deck of cards in a default way.

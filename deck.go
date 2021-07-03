@@ -52,7 +52,7 @@ func Sort(less func(cards []Card) func(i, j int) bool) Option {
 }
 
 // Shuffle is a functional option for deck constructor which will return a
-// shuffled deck of cards.
+// shuffled deck of cards. (This performs shuffling in-place)
 //
 // PS: there is no point passing Shuffle and Sort options together in any order.
 func Shuffle(cards []Card) []Card {
@@ -87,5 +87,18 @@ func Filter(predicate func(Card) bool) Option {
 			}
 		}
 		return cards[: end+1 : end+1]
+	}
+}
+
+// Decks option allows you to create multiple copies of current set of cards.
+//
+// Note: if you are going to use this option in combination with others, it is
+// recommended to keep this as your first option to avoid unwanted behavior.
+func Decks(n int) Option {
+	return func(cards []Card) (copy []Card) {
+		for ; n > 0; n-- {
+			copy = append(copy, cards...)
+		}
+		return
 	}
 }

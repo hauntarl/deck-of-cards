@@ -124,3 +124,11 @@ func TestFilter(t *testing.T) {
 		}
 	}
 }
+
+// TestDeck validates whether multiple decks were created or not.
+func TestDeck(t *testing.T) {
+	cards, want := New(Decks(2)), 52*2
+	if len(cards) != want {
+		t.Fatalf("multiple decks: expected cards %d, got %d", want, len(cards))
+	}
+}

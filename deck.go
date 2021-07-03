@@ -1,5 +1,5 @@
-// Deck module provides the basic structures and constants which can be utilized
-// to create a deck of cards for a given card game, eg. Blackjack.
+// Deck is a generic package for creating and utilizing deck of cards to
+// implement games like Blackjack and many more.
 package deck
 
 import (
